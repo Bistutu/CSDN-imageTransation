@@ -14,7 +14,7 @@ import java.util.regex.*;
 public class MainProgram {
     public static void main(String[] args) {
         // 传入 fileName 文件名，文件应位于 resources 目录下
-        imageTrasation("测试文稿.md");
+        imageTrasation("README.md");
     }
 
     private static void imageTrasation(String fileName) {
