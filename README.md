@@ -12,5 +12,8 @@ MardDown 文档有 2 种格式的图片语法，即 `![alt](src)`与`<img src="u
 ### 使用说明：
 
 将想要转换格式的 md 文档复制到项目的`/resources`目录，然后启动主程序，程序会自动生成文件名带有`CSDN-`标识的适配后文档。
+```java
+imageTrasation("文件名称.md");
+```
 
 <img src="./2.jpeg" height="160px" />
