@@ -18,15 +18,15 @@ public class MainProgram {
     }
 
     private static void imageTrasation(String fileName) {
-        Integer count   = 0;
+        Integer count = 0;
         Matcher matcher;
         // 正则表达式适配 原图片链接
-        Pattern pattern = Pattern.compile(".*<img.*=\"(.*)\".*=\"(.*)\" .*zoom:(\\d+)%.*/>.*");
+        Pattern pattern = Pattern.compile(".*<img.*=\"(.*)\".*=\"(.*)\" .*zoom: ?(\\d+)%.*/>.*");
         // 文件应置于 src/main/resources/目录下
-        String basePath   = "src/main/resources/";
+        String basePath = "src/main/resources/";
         // 源文件与目标文件
-        File   sourceFile = new File(basePath+fileName);
-        File   targetFile = new File(basePath + "CSDN-" + sourceFile.getName());
+        File sourceFile = new File(basePath + fileName);
+        File targetFile = new File(basePath + "CSDN-" + sourceFile.getName());
         // 目标文件若存在，则删除、新建
         if (targetFile.exists()) {
             targetFile.delete();
@@ -38,10 +38,15 @@ public class MainProgram {
         for (String line : lines) {
             matcher = pattern.matcher(line);
             if (matcher.matches()) {
+                // 打印，测试
+                System.out.println("1 ===》" + line);
+
                 Integer rate = Integer.parseInt(matcher.group(3));
                 // 对图片尺寸作适配
-                if (rate <= 30) {
-                    rate = 360;
+                if (rate < 33) {
+                    rate = 120;
+                } else if (rate <= 50) {
+                    rate = 240;
                 } else if (rate <= 70) {
                     rate = 480;
                 } else {
@@ -50,6 +55,7 @@ public class MainProgram {
                 line = StrUtil.format("![{}]({} ={}x)",
                         matcher.group(2), matcher.group(1), rate);
                 count++;
+                System.out.println("2 ===》" + line);
             }
             appender.append(line);
         }
